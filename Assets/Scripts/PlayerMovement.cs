@@ -23,6 +23,14 @@ public class PlayerMovement : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         movement = context.ReadValue<Vector2>();  //takes input from keyboard (x-z direction)
+        if (context.performed)
+        {
+            animator.SetBool("IsWalking", true); //Triggers walking animation
+        }
+        if (context.canceled)
+        {
+            animator.SetBool("IsWalking", false); //Stops walking animation
+        }
     }
     public void OnJump(InputAction.CallbackContext context) 
     {
@@ -42,5 +50,11 @@ public class PlayerMovement : MonoBehaviour
         verticalvelocity += gravity * Time.deltaTime;  //applies gravity to player;
         Vector3 move = new Vector3(movement.x * speed, verticalvelocity, 0); //final calculated movement vector;
         controller.Move(move * Time.deltaTime); //Applies the calculated movement to the player;
+
+        //incase player collides with the walls of the ring
+        if(controller.velocity.x == 0 && controller.isGrounded) 
+        {
+            animator.SetBool("IsWalking", false); 
+        }
     }
 }
