@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement Stats")] //Header for the movement stats in the inspector
     public float speed;
     public float jump;
-    public float gravity = -9.80665f;
+    public float gravity = -9.8066f;
 
     void Start()
     {
