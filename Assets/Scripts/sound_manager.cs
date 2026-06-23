@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class sound_manager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public AudioSource audioSource;
+    public AudioClip player_punch;
+    public AudioClip enemy_punch;
+    public AudioClip gothit;
 
-    // Update is called once per frame
-    void Update()
+    public void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
+    }
+    public void playsfx(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 }

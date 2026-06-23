@@ -12,6 +12,7 @@ public class EnemyManager : MonoBehaviour
     public float speed = 0.8f;
     bool fighting;
     bool retreating;
+    public sound_manager sound;
     private void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -20,6 +21,11 @@ public class EnemyManager : MonoBehaviour
     }
     private void Update()
     {
+        if(HealthSystem.isragdoll)   //stops the animations when ragdoll is activated;
+        {
+            StopAllCoroutines();
+            return;
+        }
         if (!fighting)
         {
             StartCoroutine(combatloop());
@@ -39,6 +45,7 @@ public class EnemyManager : MonoBehaviour
             yield return null;
         }
         animator.SetTrigger("attack");
+        sound.playsfx(sound.enemy_punch); //plays enemy punch sound effect;
         yield return new WaitForSeconds(2f);
         retreating = true;
         yield return new WaitForSeconds(Random.Range(2, 5));

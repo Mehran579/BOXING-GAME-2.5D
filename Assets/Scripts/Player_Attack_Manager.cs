@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class Player_Attack_Manager : MonoBehaviour
 {
+    public sound_manager sound_Manager;
     public Animator animator;
     public Collider punchcollider;
     public float Punchcooldown;
@@ -16,9 +17,11 @@ public class Player_Attack_Manager : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context) 
     {
+        if (HealthSystem.isragdoll) return;
         if (!isattacking)
         {
             animator.SetTrigger("IsAttacking"); //triggers attack animation
+            sound_Manager.playsfx(sound_Manager.player_punch); //plays player punch sound effect
             StartCoroutine(attackcooldown()); //adds an attack cooldown to prevent spamming attacks
         }
     }
