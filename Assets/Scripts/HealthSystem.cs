@@ -10,6 +10,7 @@ public class HealthSystem : MonoBehaviour
     public static bool isragdoll = false;
     public void takedamage(float damage) //function responsible for lowering health;
     {
+        if (Player_Attack_Manager.isblocking) return;
         Health -= damage;
         Debug.Log("Health: " + Health);
         HealthBar.value = Health;

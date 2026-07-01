@@ -15,7 +15,14 @@ public class PunchDamage : MonoBehaviour //responsible for punch damage and cont
             Animator otheranimator = other.GetComponent<Animator>();
             if (otheranimator != null && !HealthSystem.isragdoll)
             {
-                otheranimator.SetTrigger("ishit"); //triggers the knockback animation;
+                if (Player_Attack_Manager.isblocking && other.CompareTag("Player"))
+                {
+                    otheranimator.SetTrigger("b_hit"); //triggers the getting hit while blocking animation;
+                }
+                else
+                {
+                    otheranimator.SetTrigger("ishit"); //triggers the knockback animation;
+                }
             }
         }
     }

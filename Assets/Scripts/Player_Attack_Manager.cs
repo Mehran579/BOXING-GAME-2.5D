@@ -9,6 +9,7 @@ public class Player_Attack_Manager : MonoBehaviour
     public Collider punchcollider;
     public float Punchcooldown;
     bool isattacking = false;
+    public static bool isblocking;
     void Start()
     {
         animator = GetComponent<Animator>(); // reference to player's animator component
@@ -39,5 +40,19 @@ public class Player_Attack_Manager : MonoBehaviour
     public void DisablePunchCollision() //disable collision whille not attacking
     {
         punchcollider.enabled = false;
+    }
+    public void OnBlock(InputAction.CallbackContext context)
+    {
+        if(HealthSystem.isragdoll) return;
+        if (context.performed)
+        {
+            isblocking = true;
+            animator.SetBool("blocking",true);
+        }
+        if (context.canceled)
+        {
+            isblocking = false;
+            animator.SetBool("blocking",false);
+        }
     }
 }

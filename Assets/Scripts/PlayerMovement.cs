@@ -1,4 +1,6 @@
+using System.Collections;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -10,11 +12,13 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;       //for reading keyboard input
     Vector3 playermovement;  //for reading and writing player's current velocity
     float verticalvelocity; //to keep player grounded and applying jump.
+    bool facingright = true; //check the direction player is facing;
+    bool isturning;
     [Header("Movement Stats")] //Header for the movement stats in the inspector
     public float speed;
     public float jump;
     public float gravity = -9.8066f;
-
+    public float turnduration;
     void Start()
     {
         controller = GetComponent<CharacterController>(); //Reference to the player's character controller component
@@ -40,9 +44,45 @@ public class PlayerMovement : MonoBehaviour
             verticalvelocity = Mathf.Sqrt(jump * -2f * gravity);  //calculates the vertical velocity needed to jump using 3rd equation of motion
         }
     }
+    public void OnTurn(InputAction.CallbackContext context) 
+    {
+        float Direction = context.ReadValue<float>(); //reads which key is held 
+        if (context.performed)
+        {
+            if (isturning) return;
+            if(Direction > 0 && !facingright)  //runs if pressed d and player is looking at left
+            {
+                StartCoroutine(Turn());
+                facingright = true;
+            }
+            if (Direction < 0 && facingright)
+            {
+                StartCoroutine(Turn());  //runs if pressed a and player is looking right;
+                facingright = false;
+            }
+        }
+    }
+    IEnumerator Turn()
+    {
+        isturning = true;
+        Quaternion startrotation = transform.rotation;
+        Quaternion targetrotaion = startrotation * Quaternion.Euler(0,180,0);
+        float elapsed = 0f;
+        while(elapsed < turnduration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / turnduration;          //progress of rotation;
+            transform.rotation = Quaternion.Slerp(startrotation, targetrotaion, t);
+            yield return null;
+            
+        }
+        transform.rotation = targetrotaion;
+        isturning = false;
+    }
 
     void Update()
     {
+        if (Player_Attack_Manager.isblocking) return;
         if(controller.isGrounded && verticalvelocity < 0) //checks if the player is on the ground and if the vertical velocity is less than 0
         {
             verticalvelocity = -2f; //sets the vertical velocity to a small negative value to keep the player grounded
