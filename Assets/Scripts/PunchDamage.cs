@@ -22,6 +22,10 @@ public class PunchDamage : MonoBehaviour //responsible for punch damage and cont
                 else
                 {
                     otheranimator.SetTrigger("ishit"); //triggers the knockback animation;
+                    if (other.CompareTag("Enemy"))
+                    {
+                        sound.playEnemyPunchSound(false);      //stops the enemy punchfx if he is interrupted
+                    }
                 }
             }
         }

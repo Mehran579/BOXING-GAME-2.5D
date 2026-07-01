@@ -45,7 +45,7 @@ public class EnemyManager : MonoBehaviour
             yield return null;
         }
         animator.SetTrigger("attack");
-        sound.playsfx(sound.enemy_punch); //plays enemy punch sound effect;
+        sound.playEnemyPunchSound(true);
         yield return new WaitForSeconds(2f);
         retreating = true;
         yield return new WaitForSeconds(Random.Range(2, 5));
