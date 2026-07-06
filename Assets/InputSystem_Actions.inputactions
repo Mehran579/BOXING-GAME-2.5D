@@ -97,12 +97,12 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Turn",
+                    "name": "Combo",
                     "type": "Button",
-                    "id": "2c3ab57a-ecb1-4c0d-955b-3160d11532fd",
+                    "id": "738c8ec2-8730-4ca3-a5ea-c6cb69c6ae0f",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold(duration=1)",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -515,37 +515,26 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "2fc0508e-8e55-445c-a251-f8f61a4be50a",
-                    "path": "1DAxis",
+                    "name": "",
+                    "id": "1b05777f-3c30-4645-8e3a-1c291c682dba",
+                    "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Turn",
-                    "isComposite": true,
+                    "action": "Combo",
+                    "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
-                    "id": "c57b8473-604a-4721-a797-3d65ec2e866d",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
+                    "name": "",
+                    "id": "c667b6b7-7e3c-465a-8eea-ed2374fc479f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "MultiTap(tapCount=4)",
                     "processors": "",
                     "groups": "",
-                    "action": "Turn",
+                    "action": "Combo",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "8563dfc7-64dc-4f35-99ea-96ff6111c51b",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Turn",
-                    "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 }
             ]
         },

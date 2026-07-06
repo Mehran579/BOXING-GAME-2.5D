@@ -26,6 +26,7 @@ public class PunchDamage : MonoBehaviour //responsible for punch damage and cont
                     {
                         sound.playEnemyPunchSound(false);      //stops the enemy punchfx if he is interrupted
                     }
+                    
                 }
             }
         }

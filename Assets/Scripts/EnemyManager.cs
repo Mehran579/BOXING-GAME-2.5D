@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
 public class EnemyManager : MonoBehaviour
@@ -18,6 +19,7 @@ public class EnemyManager : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player").transform;
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
+        Debug.Log(transform.eulerAngles.y);
     }
     private void Update()
     {
@@ -32,7 +34,7 @@ public class EnemyManager : MonoBehaviour
         }
         if (retreating)
         {
-            controller.Move(new Vector3(speed * Time.deltaTime, 0, 0));
+            controller.Move(new Vector3(-Mathf.Sign(Player.position.x - transform.position.x)* speed * Time.deltaTime, 0, 0));
         }
     }
     IEnumerator combatloop()
@@ -40,7 +42,7 @@ public class EnemyManager : MonoBehaviour
         fighting = true;
         while (Vector3.Distance(transform.position,Player.position) > attackrange)
         {
-            controller.Move(new Vector3(-speed * Time.deltaTime, 0, 0));
+            controller.Move(new Vector3(Mathf.Sign(Player.position.x - transform.position.x)*speed * Time.deltaTime, 0, 0));
             animator.SetBool("walking", true);
             yield return null;
         }
@@ -53,9 +55,6 @@ public class EnemyManager : MonoBehaviour
         retreating = false;
         fighting = false;
     }
-
-
-
     public void EnablePunchCollision() //enable collision whille attacking
     {
         punchcollider.enabled = true;
